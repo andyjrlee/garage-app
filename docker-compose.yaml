@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  gateway:
+      container_name: garage-gateway
+      image: garage-gateway:latest
+      build: ./gateway
+      ports:
+      - target: 80
+        published: 80
+      # volumes:
+      # - type: bind
+      #   source: ./gateway/nginx.conf
+      #   target: /etc/nginx/nginx.conf
+  frontend:
+    container_name: garage-frontend
+    image: garage-frontend:latest
+    build: ./frontend
+    # ports:
+    # - target: 80
+    #   published: 80
+    #   protocol: tcp
+  backend:
+    container_name: garage-backend
+    image: garage-backend:latest
+    build: ./backend
+    # ports:
+    # - target: 9002
+    #   published: 9002
+    #   protocol: tcp
+    environment:
+      MYSQL_SERVER:
+      MYSQL_USER:
+      MYSQL_PASSWORD:
